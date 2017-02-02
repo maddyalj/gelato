@@ -1,5 +1,5 @@
 const fs = require('fs-extra')
-const globby = require('globby');
+const globby = require('globby')
 
 const Tokenizer = require('./lib/tokenizer')
 const Parser    = require('./lib/parser')
@@ -17,7 +17,7 @@ Gelato.runOnString = (input, options = { context: {} }) => {
 
 Gelato.run = (options = {}) => {
     options = Object.assign({
-        src: '**/*.gel',
+        src: '**/[^_]*.gel',
         dest: 'build',
         context: {},
     }, options)
@@ -31,7 +31,7 @@ Gelato.run = (options = {}) => {
                 const data = Gelato.runOnString(inputData, options)
                 fs.outputFile(file, data, err => {
                     if (err) throw err
-                    console.log(` 🍨  Done writing: ${inputFile} -> ${file}`)
+                    console.log(` 🍨  Done writing ${inputFile} -> ${file}`)
                 })
             })
         })
