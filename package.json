@@ -4,6 +4,7 @@
   "description": "Project Template Toolkit",
   "main": "index.js",
   "dependencies": {
-    "fs-extra": "^2.0.0"
+    "fs-extra": "^2.0.0",
+    "globby": "^6.1.0"
   }
 }
