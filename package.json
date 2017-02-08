@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "description": "Project Template Toolkit",
   "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
   "dependencies": {
     "fs-extra": "^2.0.0",
     "globby": "^6.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
   }
 }
