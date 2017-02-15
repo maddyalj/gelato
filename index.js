@@ -11,8 +11,10 @@ console.log()
 console.log('Welcome to Gelato! 👋')
 console.log()
 
-Gelato.runOnString = (input, options = { context: {} }) => {
-    return Evaluator(Parser(Tokenizer(input, options)), options.context)
+Gelato.runOnString = (input, options = { context: {} }, cb = () => {}) => {
+    return Tokenizer(input, options, tokens => {
+        cb(Evaluator(Parser(tokens), options.context))
+    })
 }
 
 Gelato.run = (options = {}) => {
@@ -28,10 +30,11 @@ Gelato.run = (options = {}) => {
             fs.readFile(inputFile, 'utf8', (err, inputData) => {
                 if (err) throw err
                 const file = `${options.dest}/${inputFile.slice(0, -4)}`
-                const data = Gelato.runOnString(inputData, options)
-                fs.outputFile(file, data, err => {
-                    if (err) throw err
-                    console.log(` 🍨  Done writing ${inputFile} -> ${file}`)
+                Gelato.runOnString(inputData, options, data => {
+                    fs.outputFile(file, data, err => {
+                        if (err) throw err
+                        console.log(` 🍨  Done writing ${inputFile} -> ${file}`)
+                    })
                 })
             })
         })
