@@ -93,4 +93,16 @@ describe('Parser', () => {
             { condition: 'y === 3', nodes: [] },
         ], elseNodes: [], nodes: [] }])
     })
+
+    it('should throw Parser Error when EFor token is not found', () => {
+        assert.throws(() => Parser([
+            { type: K.TOKEN_FOR, value: 'x in xs' },
+        ]), /Parser Error/)
+    })
+
+    it('should throw Parser Error when EIf token is not found', () => {
+        assert.throws(() => Parser([
+            { type: K.TOKEN_IF, value: 'x === 1' },
+        ]), /Parser Error/)
+    })
 })
