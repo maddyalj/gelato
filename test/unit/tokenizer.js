@@ -82,4 +82,24 @@ describe('Tokenizer', () => {
     it('should return same EIF token regardless of whitespace', () => {
         Tokenizer('[!eif!]', Tokenizer('[! eif !]'))
     })
+
+    it('should throw error when expressionEndTag is missing', () => {
+        assert.throws(() => Tokenizer('[[x'), /Tokenizer Error/)
+    })
+
+    it('should throw error when controlEndTag is missing', () => {
+        assert.throws(() => Tokenizer('[!if'), /Tokenizer Error/)
+    })
+
+    it('should throw error when includeEndTag is missing', () => {
+        assert.throws(() => Tokenizer('[@test/text.txt'), /Tokenizer Error/)
+    })
+
+    it('should throw error when control tag type is missing', () => {
+        assert.throws(() => Tokenizer('[!!]'), /Tokenizer Error/)
+    })
+
+    it('should throw error when control tag type is not definable', () => {
+        assert.throws(() => Tokenizer('[!hello!]'), /Tokenizer Error/)
+    })
 })
