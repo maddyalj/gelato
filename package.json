@@ -6,7 +6,11 @@
   "scripts": {
     "test": "mocha --recursive"
   },
+  "bin": {
+    "gelato": "./bin/gelato.js"
+  },
   "dependencies": {
+    "caporal": "^0.3.0",
     "fs-extra": "^2.0.0",
     "globby": "^6.1.0"
   },
