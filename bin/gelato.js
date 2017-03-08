@@ -17,7 +17,7 @@ caporal
     .option('--include-start-tag <tag>', 'include-start-tag <tag> start tag for includes')
     .option('--include-end-tag <tag>', 'include-end-tag <tag> end tag for includes')
     .action((args, options) => {
-        if (args.src.length) options.src = args
+        if (args.src.length) options.src = args.src
         if (!options.config) options.config = 'gelatorc'
         try { options = Object.assign(options.config ? require(path.resolve(process.cwd(), options.config)) : {}, options) }
         catch (err) { if (err.code !== 'MODULE_NOT_FOUND') throw err }
