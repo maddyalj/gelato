@@ -66,7 +66,7 @@ Gelato.run = (options = {}) => {
                 const tempOptions = Object.assign({}, options)
                 tempOptions.context[options.repeat[inputFile].variable] = e
                 Gelato.runOnString(options.repeat[inputFile].filename, tempOptions, file => {
-                    evaluateToFile(tree, tempOptions, `${inputFile.substr(0, inputFile.lastIndexOf('/'))}/${file}`, inputFile)
+                    evaluateToFile(tree, tempOptions, `${inputFile.substr(0, inputFile.lastIndexOf('/') + 1)}${file}`, inputFile)
                 })
             })
         } catch (err) {
