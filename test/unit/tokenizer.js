@@ -6,7 +6,7 @@ const Tokenizer = require('../../lib/tokenizer')
 /* global describe it */
 describe('Tokenizer', () => {
     function assertTokenizer(input, tokens) {
-        Tokenizer(input, {}, actualTokens => {
+        Tokenizer(input, {}, '', actualTokens => {
             assert.deepEqual(actualTokens, tokens)
         })
     }

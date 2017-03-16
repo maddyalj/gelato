@@ -9,7 +9,7 @@ const Evaluator = require('./lib/evaluator')
 const Gelato = {}
 
 Gelato.runOnString = (input, options = { context: {} }, cb = () => {}) => {
-    return Tokenizer(input, options, tokens => {
+    return Tokenizer(input, options, '', tokens => {
         cb(Evaluator(Parser(tokens), options.context))
     })
 }
@@ -37,7 +37,7 @@ Gelato.run = (options = {}) => {
             console.log(` 👓  Reading ${inputFile}`)
             fs.readFile(inputFile, 'utf8', (err, inputData) => {
                 if (err) throw err
-                Tokenizer(inputData, options, tokens => {
+                Tokenizer(inputData, options, inputFile, tokens => {
                     const tree = Parser(tokens)
                     if (options.repeat[inputFile]) {
                         repeatOutput(tree, options, inputFile)
