@@ -96,4 +96,28 @@ describe('Evaluator', () => {
             { type: K.NODE_PLAIN, value: '1' },
         ] }], context), '4')
     })
+
+    it('should throw Evaluator Error when given invalid expression', () => {
+        assert.throws(() => Evaluator([{ type: K.NODE_EXPRESSION, value: 'x +' }], context), /Evaluator Error/)
+    })
+
+    it('should throw Evaluator Error when given undefined variable', () => {
+        assert.throws(() => Evaluator([{ type: K.NODE_EXPRESSION, value: 'xy' }], context), /Evaluator Error/)
+    })
+
+    it('should throw Evaluator Error when given invalid if condition syntax', () => {
+        assert.throws(() => Evaluator([{ type: K.NODE_EXPRESSION, value: 'if x' }], context), /Evaluator Error/)
+    })
+
+    it('should throw Evaluator Error when given invalid if body syntax', () => {
+        assert.throws(() => Evaluator([{ type: K.NODE_EXPRESSION, value: 'if (x) {' }], context), /Evaluator Error/)
+    })
+
+    it('should throw Evaluator Error when given invalid while condition syntax', () => {
+        assert.throws(() => Evaluator([{ type: K.NODE_EXPRESSION, value: 'while x' }], context), /Evaluator Error/)
+    })
+
+    it('should throw Evaluator Error when given invalid while body syntax', () => {
+        assert.throws(() => Evaluator([{ type: K.NODE_EXPRESSION, value: 'while (x) {' }], context), /Evaluator Error/)
+    })
 })
