@@ -1,0 +1,23 @@
+[@ _header.html.gel @]
+
+[! for m in models !]
+    <h1>[[ m.name ]]</h1>
+    <table>
+        <thead>
+            <tr>
+                [! for a in m.attributes !]
+                    <th>[[ a.name ]]</th>
+                [! efor !]
+            </tr>
+        </thead>
+        [! for i in [...Array(50).keys()] !]
+            <tr>
+                [! for a in m.attributes !]
+                    <td>[[ a.fake ? _faker.fake(`{{${a.fake}}}`) : '' ]]</td>
+                [! efor !]
+            </tr>
+        [! efor !]
+    </table>
+[! efor !]
+
+[@ _footer.html.gel @]

@@ -1,0 +1,7 @@
+[! for m in models !]
+    CREATE TABLE [[ $tableName(m) ]] (
+        [! for a in m.attributes !]
+            [[ a.name ]] [[ sqlTypes[a.type] ]][[ a.required === false ? '' : ' NOT NULL' ]][[ a === m.attributes[m.attributes.length - 1] ? '' : ',' ]]
+        [! efor !]
+    );
+[! efor !]

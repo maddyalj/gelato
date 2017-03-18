@@ -1,0 +1,9 @@
+db.[[ _pluralize(model.name) ]].insertMany( [
+    [! for i in [...Array(50).keys()] !]
+        {
+            [! for a in model.attributes !]
+                [[ _.camelCase(a.name) ]]: [[ $nosqlValue(a, _faker.fake(`{{${a.fake}}}`)) ]],
+            [! efor !]
+        },
+   [! efor !]
+] );
