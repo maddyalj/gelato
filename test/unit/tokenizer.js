@@ -4,7 +4,7 @@ const K = require('../../lib/constants')
 const Tokenizer = require('../../lib/tokenizer')
 
 /* global describe it */
-describe('Tokenizer', () => {
+describe('Unit: Tokenizer', () => {
     function assertTokenizer(input, tokens) {
         Tokenizer(input, {}, '', actualTokens => {
             assert.deepEqual(actualTokens, tokens)

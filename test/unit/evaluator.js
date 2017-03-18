@@ -4,7 +4,7 @@ const K = require('../../lib/constants')
 const Evaluator = require('../../lib/evaluator')
 
 /* global describe it */
-describe('Evaluator', () => {
+describe('Unit: Evaluator', () => {
     let context = { x: 5, y: 2, xs: [1, 2, 3] }
 
     it('should return \'\' when the given [] tree', () => {

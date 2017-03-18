@@ -4,7 +4,7 @@ const K = require('../../lib/constants')
 const Parser = require('../../lib/parser')
 
 /* global describe it */
-describe('Parser', () => {
+describe('Unit: Parser', () => {
     const errorLocation = '(x:y:z)\n        abc'
 
     it('should return [] when the given [] tokens', () => {
