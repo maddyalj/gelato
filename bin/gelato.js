@@ -2,7 +2,7 @@
 
 const path = require('path')
 const caporal = require('caporal')
-const Gelato = require('../index')
+const Gelato = require('../main')
 
 caporal
     .version('1.0.0')

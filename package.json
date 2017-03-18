@@ -2,7 +2,7 @@
   "name": "gelato",
   "version": "1.0.0",
   "description": "Project Template Toolkit",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "mocha --recursive"
   },
