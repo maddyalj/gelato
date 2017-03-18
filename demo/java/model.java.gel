@@ -22,7 +22,7 @@ public class [[ model.name ]] {
     }
 
     [! for a in model.attributes !]
-        public String get[[ _.upperFirst(_.camelCase(a.name)) ]]([[ javaTypes[a.type] ]] [[ _.camelCase(a.name) ]]) {
+        public [[ javaTypes[a.type] ]] get[[ _.upperFirst(_.camelCase(a.name)) ]]() {
             return [[ _.camelCase(a.name) ]];
         }
 

@@ -119,7 +119,7 @@ module.exports = {
         'sql/insert/insert.sql.gel': {
             variable: 'model',
             array: 'models',
-            filename: '[[ Math.floor(Date.now() / 1000) ]]_[[ $tableName(model) ]].sql.gel',
+            filename: '[[ $tableName(model) ]].sql.gel',
         },
         'nosql/insert.js.gel': {
             variable: 'model',
