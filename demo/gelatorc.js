@@ -88,7 +88,6 @@ const modules = {
 }
 
 module.exports = {
-    src: ['**/[^_]*.gel', '!node_modules/**'],
     context: Object.assign(modules, {
         $tableName: m => modules._.snakeCase(modules._pluralize(m.name)),
         $sqlValue: (a, v) => a.type === 'int' ? v : '\'' + (a.type === 'string' ? v : new Date(v).toISOString().slice(0, 19).replace('T', ' ')) + '\'',
