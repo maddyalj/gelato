@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "faker": "^4.1.0",
-    "lodash": "^4.17.4",
-    "pluralize": "^4.0.0"
-  }
-}
