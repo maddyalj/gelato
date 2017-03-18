@@ -19,6 +19,7 @@ caporal
     .action((args, options) => {
         if (args.src.length) options.src = args.src
         if (!options.config) options.config = 'gelatorc'
+        if (options.context) options.context = JSON.parse(options.context)
         try { options = Object.assign(options.config ? require(path.resolve(process.cwd(), options.config)) : {}, options) }
         catch (err) { if (err.code !== 'MODULE_NOT_FOUND' || err.message.indexOf('gelatorc') === -1) throw err }
         Gelato.run(options)
