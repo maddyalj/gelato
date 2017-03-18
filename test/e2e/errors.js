@@ -2,21 +2,14 @@ const assert = require('assert')
 const exec = require('child_process').exec
 const fs = require('fs-extra')
 
-/* global describe beforeEach it */
+/* global describe it */
 describe('E2E: Errors', function () {
     this.timeout(5000)
 
-    beforeEach(cb => {
-        fs.emptyDir('temp', err => {
-            if (err) throw err
-            cb()
-        })
-    })
-
     function runGelato(input, expected, cb) {
-        fs.outputFile('temp/temp.txt.gel', input, err => {
+        fs.outputFile('test-files/temp/temp.txt.gel', input, err => {
             if (err) throw err
-            exec(`gelato -C '${JSON.stringify({ name: 'Mark' })}'`, { cwd: 'temp' }, err => {
+            exec(`gelato -C '${JSON.stringify({ name: 'Mark' })}'`, { cwd: 'test-files/temp' }, err => {
                 assert(err.message.indexOf(expected) !== -1)
                 cb()
             })
@@ -33,7 +26,7 @@ describe('E2E: Errors', function () {
         })
 
         it('should throw Tokenizer Error when include end tag is missing', cb => {
-            runGelato('Hello [@ ../test/text.txt', 'Tokenizer Error - could not find include end tag @] (temp.txt.gel:1:7)', cb)
+            runGelato('Hello [@ ../text.txt', 'Tokenizer Error - could not find include end tag @] (temp.txt.gel:1:7)', cb)
         })
 
         it('should throw Tokenizer Error when type of control end tag is missing', cb => {

@@ -7,18 +7,18 @@ describe('E2E: CLI', function () {
     this.timeout(5000)
 
     beforeEach(cb => {
-        fs.emptyDir('temp', err => {
+        fs.emptyDir('test-files/temp', err => {
             if (err) throw err
             cb()
         })
     })
 
     function runGelato(input, expected, options, cb, dest = 'build', overrideContext = false) {
-        fs.outputFile('temp/temp.txt.gel', input, err => {
+        fs.outputFile('test-files/temp/temp.txt.gel', input, err => {
             if (err) throw err
-            exec(`gelato ${overrideContext ? '' : `-C '${JSON.stringify({ name: 'Mark' })}'`} ${options}`, { cwd: 'temp' }, err => {
+            exec(`gelato ${overrideContext ? '' : `-C '${JSON.stringify({ name: 'Mark' })}'`} ${options}`, { cwd: 'test-files/temp' }, err => {
                 if (err) throw err
-                fs.readFile(`temp/${dest}/temp.txt`, 'utf8', (err, data) => {
+                fs.readFile(`test-files/temp/${dest}/temp.txt`, 'utf8', (err, data) => {
                     if (err) throw err
                     assert.equal(data, expected)
                     cb()
@@ -72,14 +72,14 @@ describe('E2E: CLI', function () {
     })
 
     it('should handle src file given with --include-start-tag flag', cb => {
-        runGelato('File says: {{ ../test/text.txt @]', 'File says: Hello Mark!\n', '--include-start-tag {{', cb)
+        runGelato('File says: {{ ../text.txt @]', 'File says: Hello Mark!\n', '--include-start-tag {{', cb)
     })
 
     it('should handle src file given with --include-end-tag flag', cb => {
-        runGelato('File says: [@ ../test/text.txt }}', 'File says: Hello Mark!\n', '--include-end-tag }}', cb)
+        runGelato('File says: [@ ../text.txt }}', 'File says: Hello Mark!\n', '--include-end-tag }}', cb)
     })
 
     it('should handle src file given with both --include-start-tag and --include-end-tag flags', cb => {
-        runGelato('File says: {{ ../test/text.txt }}', 'File says: Hello Mark!\n', '--include-start-tag {{ --include-end-tag }}', cb)
+        runGelato('File says: {{ ../text.txt }}', 'File says: Hello Mark!\n', '--include-start-tag {{ --include-end-tag }}', cb)
     })
 })

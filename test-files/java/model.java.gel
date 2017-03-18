@@ -1,0 +1,33 @@
+package gelato.demo;
+
+public class [[ model.name ]] {
+    private final long id;
+    [! for a in model.attributes !]
+        private final [[ javaTypes[a.type] ]] [[ _.camelCase(a.name) ]];
+    [! efor !]
+
+    public [[ model.name ]](long id, [[ model.attributes.map(a => `${javaTypes[a.type]} ${_.camelCase(a.name)}`).join(', ') ]]) {
+        this.id = id;
+        [! for a in model.attributes !]
+            this.[[ _.camelCase(a.name) ]] = [[ _.camelCase(a.name) ]];
+        [! efor !]
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+       this.id = id;
+    }
+
+    [! for a in model.attributes !]
+        public [[ javaTypes[a.type] ]] get[[ _.upperFirst(_.camelCase(a.name)) ]]() {
+            return [[ _.camelCase(a.name) ]];
+        }
+
+        public void set[[ _.upperFirst(_.camelCase(a.name)) ]]([[ javaTypes[a.type] ]] [[ _.camelCase(a.name) ]]) {
+            this.[[ _.camelCase(a.name) ]] = [[ _.camelCase(a.name) ]];
+        }
+    [! efor !]
+}

@@ -1,0 +1,7 @@
+INSERT INTO [[ $tableName(model) ]]
+    ([[ model.attributes.map(a => a.name).join(', ') ]])
+VALUES
+    [! for i in [...Array(50).keys()] !]
+        ([[ model.attributes.map(a => $sqlValue(a, _faker.fake(`{{${a.fake}}}`))).join(', ') ]])[[ i === 50 ? '' : ',' ]]
+    [! efor !]
+;

@@ -2,7 +2,7 @@ const assert = require('assert')
 const exec = require('child_process').exec
 const fs = require('fs-extra')
 
-const context = require('../../demo/gelatorc').context
+const context = require('../../test-files/gelatorc').context
 
 /* global describe before it */
 describe('E2E: Demo', function () {
@@ -20,13 +20,16 @@ describe('E2E: Demo', function () {
     ]
 
     before(cb => {
-        fs.emptyDir('demo/build', err => {
+        fs.emptyDir('test-files/build', err => {
             if (err) throw err
-            exec('gelato', { cwd: 'demo' }, (err, stdout, stderr) => {
+            fs.emptyDir('test-files/temp', err => {
                 if (err) throw err
-                savedStdout = stdout
-                savedStderr = stderr
-                cb()
+                exec('gelato', { cwd: 'test-files' }, (err, stdout, stderr) => {
+                    if (err) throw err
+                    savedStdout = stdout
+                    savedStderr = stderr
+                    cb()
+                })
             })
         })
     })
@@ -46,7 +49,7 @@ describe('E2E: Demo', function () {
         })
 
         it('should have created correct 5 directories inside build directory', cb => {
-            fs.readdir('demo/build', (err, data) => {
+            fs.readdir('test-files/build', (err, data) => {
                 assert.deepEqual(data, ['html', 'java', 'nosql', 'php', 'sql'])
                 cb()
             })
@@ -58,7 +61,7 @@ describe('E2E: Demo', function () {
 
         describe('html', () => {
             it('should have only home.html', cb => {
-                fs.readdir('demo/build/html', (err, data) => {
+                fs.readdir('test-files/build/html', (err, data) => {
                     assert.deepEqual(data, ['home.html'])
                     cb()
                 })
@@ -68,21 +71,21 @@ describe('E2E: Demo', function () {
                 let home = null
 
                 before(cb => {
-                    fs.readFile('demo/build/html/home.html', 'utf8', (err, data) => {
+                    fs.readFile('test-files/build/html/home.html', 'utf8', (err, data) => {
                         home = data
                         cb()
                     })
                 })
 
                 it('should have build/html/home.html starting with _header.html.gel content', cb => {
-                    fs.readFile('demo/html/_header.html.gel', 'utf8', (err, header) => {
+                    fs.readFile('test-files/html/_header.html.gel', 'utf8', (err, header) => {
                         assert.equal(home.indexOf(header), 0)
                         cb()
                     })
                 })
 
                 it('should have build/html/home.html ending with _footer.html.gel content', cb => {
-                    fs.readFile('demo/html/_footer.html.gel', 'utf8', (err, footer) => {
+                    fs.readFile('test-files/html/_footer.html.gel', 'utf8', (err, footer) => {
                         assert.equal(home.indexOf(footer), home.length - footer.length - 1)
                         cb()
                     })
@@ -107,7 +110,7 @@ describe('E2E: Demo', function () {
 
         describe('java', () => {
             it('should have correct 4 java model files', cb => {
-                fs.readdir('demo/build/java', (err, data) => {
+                fs.readdir('test-files/build/java', (err, data) => {
                     assert.deepEqual(data.sort(), context.models.map(m => `${m.name}.java`).sort())
                     cb()
                 })
@@ -118,7 +121,7 @@ describe('E2E: Demo', function () {
             context.models.forEach(m => {
                 describe(`${m.name}.java`, () => {
                     before(cb => {
-                        fs.readFile(`demo/build/java/${m.name}.java`, 'utf8', (err, data) => {
+                        fs.readFile(`test-files/build/java/${m.name}.java`, 'utf8', (err, data) => {
                             javaFiles[m.name] = data
                             cb()
                         })
@@ -163,7 +166,7 @@ describe('E2E: Demo', function () {
 
         describe('nosql', () => {
             it('should have correct 4 nosql insert files', cb => {
-                fs.readdir('demo/build/nosql', (err, data) => {
+                fs.readdir('test-files/build/nosql', (err, data) => {
                     assert.deepEqual(data.sort(), context.models.map(m => `${m.name}.js`).sort())
                     cb()
                 })
@@ -174,7 +177,7 @@ describe('E2E: Demo', function () {
             context.models.forEach(m => {
                 describe(`${m.name}.js`, () => {
                     before(cb => {
-                        fs.readFile(`demo/build/nosql/${m.name}.js`, 'utf8', (err, data) => {
+                        fs.readFile(`test-files/build/nosql/${m.name}.js`, 'utf8', (err, data) => {
                             nosqlFiles[m.name] = data
                             cb()
                         })
@@ -198,7 +201,7 @@ describe('E2E: Demo', function () {
 
         describe('php', () => {
             it('should have correct 4 php model files', cb => {
-                fs.readdir('demo/build/php', (err, data) => {
+                fs.readdir('test-files/build/php', (err, data) => {
                     assert.deepEqual(data.sort(), context.models.map(m => `${m.name}.php`).sort())
                     cb()
                 })
@@ -209,7 +212,7 @@ describe('E2E: Demo', function () {
             context.models.forEach(m => {
                 describe(`${m.name}.php`, () => {
                     before(cb => {
-                        fs.readFile(`demo/build/php/${m.name}.php`, 'utf8', (err, data) => {
+                        fs.readFile(`test-files/build/php/${m.name}.php`, 'utf8', (err, data) => {
                             phpFiles[m.name] = data
                             cb()
                         })
@@ -240,7 +243,7 @@ describe('E2E: Demo', function () {
 
         describe('sql', () => {
             it('should have correct 1 create sql file and insert directory', cb => {
-                fs.readdir('demo/build/sql', (err, data) => {
+                fs.readdir('test-files/build/sql', (err, data) => {
                     assert.deepEqual(data.sort(), ['insert', 'create.sql'].sort())
                     cb()
                 })
@@ -250,7 +253,7 @@ describe('E2E: Demo', function () {
 
             describe('create.sql', () => {
                 before(cb => {
-                    fs.readFile(`demo/build/sql/create.sql`, 'utf8', (err, data) => {
+                    fs.readFile(`test-files/build/sql/create.sql`, 'utf8', (err, data) => {
                         createFile = data
                         cb()
                     })
@@ -274,7 +277,7 @@ describe('E2E: Demo', function () {
 
             describe('insert', () => {
                 it('should have correct 4 insert sql files', cb => {
-                    fs.readdir('demo/build/sql/insert', (err, data) => {
+                    fs.readdir('test-files/build/sql/insert', (err, data) => {
                         assert.deepEqual(data.sort(), context.models.map(m => `${context.$tableName(m)}.sql`).sort())
                         cb()
                     })
@@ -285,7 +288,7 @@ describe('E2E: Demo', function () {
                 context.models.forEach(m => {
                     describe(`${context.$tableName(m)}.sql`, () => {
                         before(cb => {
-                            fs.readFile(`demo/build/sql/insert/${context.$tableName(m)}.sql`, 'utf8', (err, data) => {
+                            fs.readFile(`test-files/build/sql/insert/${context.$tableName(m)}.sql`, 'utf8', (err, data) => {
                                 insertFiles[m.name] = data
                                 cb()
                             })

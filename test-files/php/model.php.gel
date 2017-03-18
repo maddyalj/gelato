@@ -1,0 +1,38 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class [[ model.name ]] extends Model
+{
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = '[[ $tableName(model) ]]';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['[[ model.attributes.map(a => a.name).join('\', \'') ]]'];
+
+    [! if model.hasTimestamps === false !]
+        /**
+         * Indicates if the model should be timestamped.
+         *
+         * @var bool
+         */
+        public $timestamps = false;
+    [! eif !]
+
+    /**
+     * The storage format of the model's date columns.
+     *
+     * @var string
+     */
+    protected $dateFormat = 'U';
+}
