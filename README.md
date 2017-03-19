@@ -36,6 +36,66 @@ Now you're ready to go!
 ### Running Tests
 Run `yarn test` to execute all unit and end-to-end tests. The results will be outputted for you in detail.
 
+## Usage Examples
+
+### Basic
+In this example, our aim is to create a simple text file that says `Hello Sarah!`. The name Sarah will be passed separately into the template.
+1. Create an empty project directory called `gelato-example`
+2. `cd gelato-example`
+3. Create a new file called `user.txt.gel` and write the following code:
+    ```
+    Hello [[ name ]]!
+    ```
+    * Gelato template files end with `.gel` extension. After running gelato, this extension will be removed, hence getting a file called `user.txt`
+    * Gelato can work with any programming language (or plain files like this one
+    * This file has an expression. Expressions are passed to Gelato by wrapping them like this `[[ EXPRESSION_HERE ]]`
+    * Any valid Javascript code could be put as an expression and its evaluated value will be written to the output file.
+    * In this case, `name` is a variable that should be defined in the context object passed to Gelato using `gelatorc.js` file that we're creating next
+4. Create the configuration file `gelatorc.js` and write the following code:
+    ```javascript
+    const context = {
+        name: 'Sarah',
+    }
+
+    module.exports = { context }
+    ```
+5. Run `gelato`. It will look for all `.gel` files that do NOT start with an `_` and process them. It will then create a `build` directory and add the outputted files to it. In this case, you'll find the file `user.txt` with the following content:
+    ```
+    Hello Sarah!
+    ```
+
+### Multiple Output
+In this example, we'll supply Gelato context with an array of `names`, and we want it to output a file for each of these names.
+1. Change `context` variable value in `gelatorc.js` into the following:
+    ```javascript
+    const context = {
+        names: ['Sarah', 'Mark', 'Liam', 'Emily', 'Jack'],
+    }
+    ```
+2. Define a `repeat` variable to instruct Gelato to output a file for each `name` in the `names` array. This is how the whole `gelatorc.js` file should look like:
+    ```javascript
+    const context = {
+        names: ['Sarah', 'Mark', 'Liam', 'Emily', 'Jack'],
+    }
+
+    const repeat = {
+        'user.text.gel': {
+            variable: 'name',
+            array: 'names',
+            filename: '[[ name ]].txt.gel',
+        },
+    }
+
+    module.exports = { context, repeat }
+    ```
+    * Since we're only supplying one filename we need to give Gelato the pattern to follow for naming each output file, by pretending the input filename to be in the format of `[[ name ]].txt.gel`. This will produce something like `Sarah.txt`, `Mark.txt` ...etc
+3. It's time to run `gelato` command. Now you should get 5 new files in your `build` directory. Each one is named after one of the names in the `names` array
+
+### Demo Files
+Gelato has a variety of more complex features such as loops and if statements. Detailed usage instructions are written in the Template Syntax section of this document. However, I've written many complicated template files for a variety of programming languages in the `demo` directory.
+
+The `demo` directory is basically an example project directory that an end user could have written for writing SQL statements and model files in an MVC web framework. If you like to try it out, simply `cd demo`, and run `gelato` command. As usual, the outputted files will be added to the `build` directory.
+
 ## Configuration
 In your project folder, such as `demo`, you are able to pass your options and context into Gelato using a config file. By default Gelato will look for a file in the root of your project called `gelatorc.js`. You can find one for example in `demo/gelatorc.js`. This is a simple javascript file the exports a javascript object file with the options that it wants to pass into Gelato.
 
