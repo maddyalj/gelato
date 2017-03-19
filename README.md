@@ -34,4 +34,26 @@ Gelato is a command line tool that allows developers to efficiently generate the
 Now you're ready to go!
 
 ### Running Tests
-Run `yarn test` to execute all unit and end-to-end tests. The results will be outputted for you in details.
+Run `yarn test` to execute all unit and end-to-end tests. The results will be outputted for you in detail.
+
+## Configuration
+In your project folder, such as `demo`, you are able to pass your options and context into Gelato using a config file. By default Gelato will look for a file in the root of your project called `gelatorc.js`. You can find one for example in `demo/gelatorc.js`. This is a simple javascript file the exports a javascript object file with the options that it wants to pass into Gelato.
+
+In the cli, you can override these options by supplying flags with your `gelato` command. You can view a list of all avaialable options by running `gelato -h`.
+
+### Possible Options
+Here is a list of all options you're able to provide for Gelato.
+
+Parameter | Override with CLI | Description | Default
+--- | --- | --- | ---
+src | Pass as arguments [src] | Source file glob patterns | '\*\*/[^\_]\*.gel'
+config | Use flag --config \<file> or shorthand -c \<file> | Config file | 'gelatorc.js'
+dest | Use flag --dest \<directory> or shorthand -d \<directory> | Destination directory | 'build'
+context | Use flag --context \<object> or shorthand -C \<object> | Context object | {}
+repeat | Use flag --repeat \<object> or shorthand -C \<object> | Repeat object | {}
+expressionStartTag | Use flag --expression-start-tag \<tag> | Start tag for expression statements | '[['
+expressionEndTag | Use flag --expression-end-tag \<tag> | End tag for expression statements | ']]'
+controlStartTag | Use flag --control-start-tag \<tag> | Start tag for control statements | '[!'
+controlEndTag | Use flag --control-end-tag \<tag> | End tag for control statements | '!]'
+includeStartTag | Use flag --include-start-tag \<tag> | Start tag for include statements | '[@'
+includeEndTag | Use flag --include-end-tag \<tag> | End tag for include statements | '@]'
