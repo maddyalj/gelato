@@ -10,6 +10,7 @@ caporal
     .option('-c, --config <file>', 'config <file> config file')
     .option('-d, --dest <directory>', 'dest <directory> destination directory')
     .option('-C, --context <object>', 'context <object> context object')
+    .option('-C, --repeat <object>', 'repeat <object> repeat object')
     .option('--expression-start-tag <tag>', 'expression-start-tag <tag> start tag for expression statements')
     .option('--expression-end-tag <tag>', 'expression-end-tag <tag> end tag for expression statements')
     .option('--control-start-tag <tag>', 'control-start-tag <tag> start tag for control statements')
@@ -20,6 +21,7 @@ caporal
         if (args.src.length) options.src = args.src
         if (!options.config) options.config = 'gelatorc'
         if (options.context) options.context = JSON.parse(options.context)
+        if (options.repeat) options.repeat = JSON.parse(options.repeat)
         try { options = Object.assign(options.config ? require(path.resolve(process.cwd(), options.config)) : {}, options) }
         catch (err) { if (err.code !== 'MODULE_NOT_FOUND' || err.message.indexOf('gelatorc') === -1) throw err }
         Gelato.run(options)
