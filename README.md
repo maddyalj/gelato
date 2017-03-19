@@ -46,7 +46,7 @@ Here is a list of all options you're able to provide for Gelato.
 
 Parameter | Override with CLI | Description | Default
 --- | --- | --- | ---
-src | Pass as arguments [src] | Source file glob patterns | '\*\*/[^\_]\*.gel'
+src | Pass as arguments [src] | Source file glob patterns | '\*\*/[\^\_]\*.gel'
 config | Use flag --config \<file> or shorthand -c \<file> | Config file | 'gelatorc.js'
 dest | Use flag --dest \<directory> or shorthand -d \<directory> | Destination directory | 'build'
 context | Use flag --context \<object> or shorthand -C \<object> | Context object | {}
