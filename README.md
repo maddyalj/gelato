@@ -96,6 +96,37 @@ Gelato has a variety of more complex features such as loops and if statements. D
 
 The `demo` directory is basically an example project directory that an end user could have written for writing SQL statements and model files in an MVC web framework. If you like to try it out, simply `cd demo`, and run `gelato` command. As usual, the outputted files will be added to the `build` directory.
 
+## Template Syntax
+
+### Expressions
+```
+Welcome to [[ website.name ]].
+```
+
+### For Loops
+```
+User Email List:
+[! for user in users !]
+- [[ user.name ]]: [[ user.email ]]
+[! efor !]
+```
+
+### If Statements
+```
+[! if user.isAdmin !]
+    Welcome Admin!
+[! else if user.isLoggedIn !]
+    Welcome back!
+[! else !]
+    Please login
+[! eif !]
+```
+
+### Include Files
+```
+[@ partials/_header.html.gel @]
+```
+
 ## Configuration
 In your project folder, such as `demo`, you are able to pass your options and context into Gelato using a config file. By default Gelato will look for a file in the root of your project called `gelatorc.js`. You can find one for example in `demo/gelatorc.js`. This is a simple javascript file the exports a javascript object file with the options that it wants to pass into Gelato.
 
