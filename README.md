@@ -117,3 +117,15 @@ controlStartTag | Use flag --control-start-tag \<tag> | Start tag for control st
 controlEndTag | Use flag --control-end-tag \<tag> | End tag for control statements | '!]'
 includeStartTag | Use flag --include-start-tag \<tag> | Start tag for include statements | '[@'
 includeEndTag | Use flag --include-end-tag \<tag> | End tag for include statements | '@]'
+
+### `src` glob patterns
+Gelato allows you to supply it with filenames that you want to be processed as command line arguments. However, you could also pass a Unix-like glob pattern such as `**/*.gel` that will match all `.gel` files in your project. If you don't supply any filenames or patterns, Gelato will run using the default pattern `**/[^_]*.gel`, which would match all `.gel` files except those that start with `_`.
+
+The following is a list of glob patterns you could use:
+* `?` matches one character other than `/`
+* `*` matches zero or more characters other than `/`
+* `**` matches zero or more of characters including `/` if there is nothing else other than it in the path part
+* `{pattern1,pattern2,pattern3}` matches any of the patterns supplied
+* `[abc]` matches any character included between the bracket
+* `[^abc]` matches any character not included between the bracket
+* `!` negates matches if a pattern starts with it
