@@ -10,7 +10,7 @@ caporal
     .option('-c, --config <file>', 'config <file> config file')
     .option('-d, --dest <directory>', 'dest <directory> destination directory')
     .option('-C, --context <object>', 'context <object> context object')
-    .option('-C, --repeat <object>', 'repeat <object> repeat object')
+    .option('-r, --repeat <object>', 'repeat <object> repeat object')
     .option('--expression-start-tag <tag>', 'expression-start-tag <tag> start tag for expression statements')
     .option('--expression-end-tag <tag>', 'expression-end-tag <tag> end tag for expression statements')
     .option('--control-start-tag <tag>', 'control-start-tag <tag> start tag for control statements')
