@@ -3,6 +3,23 @@
 
 Gelato is a command line tool that allows developers to efficiently generate their project files using template files. It supports all typical programming features and allows outputting multiple files from single template.
 
+## Table of Contents
+* [File Structure](#file-structure)
+* [Before Usage](#before-usage)
+    * [Running Tests](#running-tests)
+* [Usage Examples](#usage-examples)
+    * [Basic](#basic)
+    * [Multiple Output](#multiple-output)
+    * [Demo Files](#demo-files)
+* [Template Syntax](#template-syntax)
+    * [Expressions](#expressions)
+    * [For Loops](#for-loops)
+    * [If Statements](#if-statements)
+    * [Include Files](#include-files)
+* [Configuration](#configuration)
+    * [Possible Options](#possible-options)
+    * [`src` glob patterns](#src-glob-patterns)
+
 ## File Structure
 ```
 .
