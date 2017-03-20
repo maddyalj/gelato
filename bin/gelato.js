@@ -4,6 +4,7 @@ const path = require('path')
 const caporal = require('caporal')
 const Gelato = require('../main')
 
+// define gelato cli
 caporal
     .version('1.0.0')
     .argument('[src...]', 'source file glob patterns')
@@ -18,13 +19,21 @@ caporal
     .option('--include-start-tag <tag>', 'include-start-tag <tag> start tag for include statements')
     .option('--include-end-tag <tag>', 'include-end-tag <tag> end tag for include statements')
     .action((args, options) => {
+        // set src option
         if (args.src.length) options.src = args.src
+        // set config file as 'gelatorc' if it is not provided
         if (!options.config) options.config = 'gelatorc'
+        // convert context and repeat options into objects
         if (options.context) options.context = JSON.parse(options.context)
         if (options.repeat) options.repeat = JSON.parse(options.repeat)
+
+        // attempt to get options from config file
         try { options = Object.assign(options.config ? require(path.resolve(process.cwd(), options.config)) : {}, options) }
         catch (err) { if (err.code !== 'MODULE_NOT_FOUND' || err.message.indexOf('gelatorc') === -1) throw err }
+
+        // run Gelato with options produced
         Gelato.run(options)
     })
 
+// run gelato cli with user inputted arguments
 caporal.parse(process.argv)
